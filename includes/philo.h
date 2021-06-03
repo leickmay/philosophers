@@ -6,7 +6,7 @@
 /*   By: leickmay <leickmay@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:15:05 by leickmay          #+#    #+#             */
-/*   Updated: 2021/06/03 15:25:57 by leickmay         ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 15:37:25 by leickmay         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,10 @@ typedef struct s_args
 	int	time_sleep;
 	int	time_each_eat;
 }				t_args;
+
+int	ft_strlen(char *str);
+int	check_args(char **av);
+int	parse_args(int ac, char **av, t_args *args);
+
 
 #endif

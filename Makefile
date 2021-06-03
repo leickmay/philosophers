@@ -1,6 +1,6 @@
 HEADER		=	includes/philo.h
 
-SRCS_ONE		=	philo_one/main.c
+SRCS_ONE		=	srcs_one/main.c srcs_one/parsing.c
 
 #SRCS_P		=	srcs_push_swap/check_args.c srcs_push_swap/main.c srcs_push_swap/operations.c \
 				srcs_push_swap/operations_bis.c srcs_push_swap/operations_ter.c srcs_push_swap/stack.c \
@@ -16,7 +16,7 @@ CC			=	gcc
 
 CFLAGS		=	-Wall -Werror -Wextra
 
-OBJS_ONE	=	$(SRCS_C:.c=.o)
+OBJS_ONE	=	$(SRCS_ONE:.c=.o)
 
 #OBJS_P		=	$(SRCS_P:.c=.o)
 
@@ -37,7 +37,7 @@ clean :
 		rm -rf $(OBJS_ONE)
 
 fclean :
-		rm -rf $(OBJS_ONE)
+		rm -rf $(OBJS_ONE) $(NAME)
 	
 re :	fclean all
 
