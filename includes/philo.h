@@ -6,7 +6,7 @@
 /*   By: leickmay <leickmay@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:15:05 by leickmay          #+#    #+#             */
-/*   Updated: 2021/06/04 13:56:36 by leickmay         ###   ########lyon.fr   */
+/*   Updated: 2021/06/07 15:09:00 by leickmay         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_args
 
 t_args			g_args;
 pthread_mutex_t	g_mutex;
-int				g_fork_used;
+int				*g_fork_used;
 int				g_alive;
 int				g_init_time;
 struct timeval	g_begin_time;
