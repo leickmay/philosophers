@@ -6,7 +6,7 @@
 /*   By: leickmay <leickmay@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:14:41 by leickmay          #+#    #+#             */
-/*   Updated: 2021/06/07 17:21:58 by leickmay         ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 15:38:53 by leickmay         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,12 @@ struct timeval	philo_eat(int fork_1, int fork_2, int i, struct timeval last_eat)
 			pthread_mutex_lock(&g_mutex);
 			g_fork_used[fork_2] = 1;
 			g_fork_used[fork_1] = 1;
+			pthread_mutex_unlock(&g_mutex);
 			timestamp = set_timestamp();
 			printf("%ld ms %d has taken a fork\n", timestamp, i);
 			printf("%ld ms %d is eating\n", timestamp, i);
 			usleep(g_args.time_eat * 1000);
+			pthread_mutex_lock(&g_mutex);
 			g_fork_used[fork_2] = 0;
 			g_fork_used[fork_1] = 0;
 			pthread_mutex_unlock(&g_mutex);
@@ -117,7 +119,7 @@ void	set_forks(int *fork_1, int *fork_2, int i)
 void	*philo_thread(void *id_philo)
 {
 	int	i;
-	int	state;
+	int	eat;
 	int	fork_1;
 	int	fork_2;
 	struct timeval	last_eat;
@@ -127,19 +129,23 @@ void	*philo_thread(void *id_philo)
 	/*already_eat = 0;
 	already_think = 0;
 	already_sleep = 0;*/
-	state = 0;
 	i = *(int*)id_philo;
+	eat = 0;
 	set_forks(&fork_1, &fork_2, i);
 	//printf("fork 1 : %d, 2 : %d\n", fork_1, fork_2);
 	gettimeofday(&last_eat, NULL);
 	while (g_alive)
 	{
-		last_eat = philo_eat(fork_1, fork_2, i, last_eat);
+		if (g_alive)
+			last_eat = philo_eat(fork_1, fork_2, i, last_eat);
+			eat++;
+		if (g_args.time_each_eat > 0 && eat == g_args.time_each_eat)
+			break ;
 		if (g_alive)
 			philo_sleep(i);
 		if (g_alive)
 			philo_think(i);
-		
+
 		/*if (!g_fork_used)
 		{
 			already_eat = philo_eat(i);
