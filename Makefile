@@ -1,6 +1,11 @@
 HEADER		=	includes/philo.h
 
-SRCS		=	srcs/main.c srcs/parsing.c
+SRCS		=	srcs/main.c \
+				srcs/parsing.c \
+				srcs/error.c \
+				srcs/forks.c \
+				srcs/states.c \
+				srcs/thread.c
 
 #SRCS_P		=	srcs_push_swap/check_args.c srcs_push_swap/main.c srcs_push_swap/operations.c \
 				srcs_push_swap/operations_bis.c srcs_push_swap/operations_ter.c srcs_push_swap/stack.c \
