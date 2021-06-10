@@ -6,7 +6,7 @@
 /*   By: leickmay <leickmay@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 18:55:19 by leickmay          #+#    #+#             */
-/*   Updated: 2021/06/09 19:05:29 by leickmay         ###   ########lyon.fr   */
+/*   Updated: 2021/06/10 11:34:19 by leickmay         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ long	check_eat_time(struct timeval last_eat, int i)
 	gettimeofday(&current_time, NULL);
 	timestamp = ((current_time.tv_sec * 1000000 + current_time.tv_usec) - \
 	(last_eat.tv_sec * 1000000 + last_eat.tv_usec)) / 1000;
-	if (timestamp >= g_args.time_die)
+	pthread_mutex_lock(&g_mutex);
+	if (timestamp >= g_args.time_die && g_alive)
 	{
 		printf("\033[0;31m%ld ms %d died\n\033[0m", set_timestamp(), i);
 		g_alive = 0;
 	}
+	pthread_mutex_unlock(&g_mutex);
 	return (timestamp);
 }
 
